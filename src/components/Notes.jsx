@@ -3,10 +3,6 @@ import { db } from "../config/firebasedb";
 import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
 
 function Notes() {
-  const handling = (event) => {
-    console.log(event.target.innerHTML);
-  };
-
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -21,7 +17,7 @@ function Notes() {
               ...doc.data(),
             };
           });
-          setData(notesList);
+          setData(notesList.reverse());
           return notesList;
         });
       } catch (error) {
@@ -34,7 +30,7 @@ function Notes() {
   const handleUpdateNote = async (id, updatedNote) => {
     try {
       const noteRef = doc(db, "mynotes", id);
-      await updateDoc(noteRef, { note: updatedNote });
+      await updateDoc(noteRef, { note: encodeURIComponent(updatedNote) });
       console.log("Note updated successfully!");
     } catch (error) {
       console.error("Error updating note: ", error);
@@ -48,9 +44,9 @@ function Notes() {
           key={note.id}
           contentEditable={true}
           onBlur={(e) => handleUpdateNote(note.id, e.target.innerHTML)}
-          className="text-sm leading-4 mt-3 bg-yellow-50 p-2 rounded-xl">
-          {note.note}
-        </div>
+          className="text-sm leading-4 mt-3 bg-yellow-50 p-2 rounded-xl"
+          dangerouslySetInnerHTML={{ __html: decodeURIComponent(note.note) }}
+        />
       ))}
     </>
   );
