@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../config/firebasedb";
 
-function DeleteNote({ Noteid, noteTime }) {
+function DeleteNote({ Noteid, noteTime,alltext }) {
   console.log(noteTime.seconds)
   
   const deleteNote = async (nodeId) => {
@@ -37,18 +37,38 @@ function DeleteNote({ Noteid, noteTime }) {
   
     return formattedDateTime;
   }
+
+
+  const copyContent = (content) => {
+    navigator.clipboard.writeText(content)
+      .then(() => {
+        console.log('Content copied to clipboard');
+      })
+      .catch((error) => {
+        console.error('Failed to copy content: ', error);
+      });
+  };
   
   
   
 
   return (
-    <div className="absolute  right-0 -bottom-1 flex gap-3 ">
+    <div className="absolute  right-0 -bottom-1 flex gap-1 ">
       <p className=" text-xs text-slate-400 ">created on {formatSecondsToDateTimeString((noteTime.seconds))}</p>
       <img
         onClick={() => {
-          deleteNote(Noteid);
+          copyContent(alltext)
         }}
-        className="w-5 hover:w-6 cursor-pointer transition right-0  group"
+        className="w-5 hover:shadow-4xl cursor-pointer transition right-0  group"
+        src="https://cdn-icons-png.flaticon.com/512/7718/7718997.png"
+        alt="del"
+      />
+      <img
+        onClick={() => {
+          deleteNote(Noteid);
+          
+        }}
+        className="w-5 hover:shadow-4xl cursor-pointer transition right-0  group"
         src="https://cdn-icons-png.freepik.com/256/3838/3838817.png"
         alt="del"
       />

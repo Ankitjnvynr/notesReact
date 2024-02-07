@@ -50,7 +50,7 @@ function Notes() {
             className="text-sm shadow-md leading-4 mt-3 bg-yellow-50 p-3 pb-5 rounded-xl cursor-text"
             dangerouslySetInnerHTML={{ __html: decodeURIComponent(note.note) }}
           />
-          <DeleteNote Noteid={note.id} noteTime={note.timestamp} />
+          <DeleteNote Noteid={note.id} noteTime={note.timestamp} alltext={{ __html: decodeURIComponent(note.note) }} />
         </div>
       ))}
     </>
