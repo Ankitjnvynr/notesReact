@@ -12,7 +12,6 @@ function Notes() {
         const notesRef = collection(db, "mynotes");
         onSnapshot(notesRef, (snapshot) => {
           const notesList = snapshot.docs.map((doc) => {
-            
             return {
               id: doc.id,
               ...doc.data(),
@@ -40,7 +39,7 @@ function Notes() {
   };
 
   
-
+  
   return (
     <>
       {data.map((note) => (
@@ -51,7 +50,7 @@ function Notes() {
             className="text-sm shadow-md leading-4 mt-3 bg-yellow-50 p-3 pb-5 rounded-xl cursor-text"
             dangerouslySetInnerHTML={{ __html: decodeURIComponent(note.note) }}
           />
-          <DeleteNote Noteid ={note.id} noteTime={note.timestamp} />
+          <DeleteNote Noteid={note.id} noteTime={note.timestamp} />
         </div>
       ))}
     </>
