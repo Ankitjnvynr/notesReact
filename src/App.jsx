@@ -5,6 +5,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import Notes from "./components/Notes";
 import NewNote from "./components/NewNote";
+import LoginPage from "./components/LoginPage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,6 +15,7 @@ function App() {
       <NavBar />
       <NewNote />
       <Notes/>
+      {/* <LoginPage /> */}
     </div>
   );
 }
